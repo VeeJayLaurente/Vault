@@ -20,8 +20,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-kovm6hy!=&i((6d_o-1a5biwo!s8bujo_sgerd)1frno7=n4bx'
+# This tells Django: "Look for a key named SECRET_KEY in the system. 
+# If you don't find it, use this long random string (for local dev only)."
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-your-local-fallback-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
