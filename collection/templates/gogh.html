@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Monet | The Vault</title>
+        {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body class="artist-page">
+    <a href="{% url 'home' %}" class="back-nav">← Back to Collections</a>
+    <section class="artist-hero vangogh-hero">
+        <div class="hero-overlay">
+            <span>The Soul of Expression</span>
+            <h1>Vincent Van Gogh</h1>
+        </div>
+    </section>
+    <section class="interactive-gallery">
+        <div class="gallery-wrapper">
+            <div class="art-viewer"><img src="starry-night.jpg" alt="Starry Night"></div>
+            <div class="info-card">
+                <div class="info-content">
+                    <span class="year">1889</span>
+                    <h2>The Starry Night</h2>
+                    <hr>
+                    <p>Painted from his asylum room at Saint-Rémy-de-Provence, this work represents the peak of his post-impressionist style, featuring swirling celestial patterns.</p>
+                    <div class="carousel-controls">
+                        <button class="prev">←</button>
+                        <button class="next">→</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script> 
+const artworks = [
+    {
+        img: "art1.jpg",
+        year: "1906",
+        title: "Masterpiece One",
+        desc: "Description of the first artwork goes here."
+    },
+    {
+        img: "art2.jpg",
+        year: "1910",
+        title: "Masterpiece Two",
+        desc: "Description of the second artwork goes here."
+    }
+];
+
+let currentIndex = 0;
+
+function updateGallery() {
+    const artImg = document.querySelector('.art-viewer img');
+    const yearLabel = document.querySelector('.info-content .year');
+    const titleLabel = document.querySelector('.info-content h2');
+    const descLabel = document.querySelector('.info-content p');
+
+    // Add a quick fade effect
+    artImg.style.opacity = 0;
+    
+    setTimeout(() => {
+        artImg.src = artworks[currentIndex].img;
+        yearLabel.innerText = artworks[currentIndex].year;
+        titleLabel.innerText = artworks[currentIndex].title;
+        descLabel.innerText = artworks[currentIndex].desc;
+        artImg.style.opacity = 1;
+    }, 300);
+}
+
+document.querySelector('.next').addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % artworks.length;
+    updateGallery();
+});
+
+document.querySelector('.prev').addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + artworks.length) % artworks.length;
+    updateGallery();
+});
+</script>
+</html>

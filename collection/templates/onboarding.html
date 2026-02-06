@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome | The Curator's Vault</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body class="auth-bg">
+    <div class="onboarding-container">
+        <div class="onboarding-content">
+            <span class="step-count">01 / 03</span>
+            <h1>Curation at your <br><em>fingertips.</em></h1>
+            <p>Step into a world where the brushstrokes of Monet and the dreams of Dalí coexist.</p>
+            
+            <div class="onboarding-actions">
+                <a href="{% url 'login' %}" class="btn-primary">Enter Vault</a>
+                <a href="{% url 'home' %}" class="btn-text">Skip to Gallery</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

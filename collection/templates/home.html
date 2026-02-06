@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Curator's Vault | Art Collection</title>
+</head>  
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<body>
+
+    <header>
+        <nav>
+            <a href="{% url 'onboarding' %}" class="logo">
+            <div class="logo">VAULT</div>
+            <a/>
+
+            <ul>
+                <li><a href="#collections">Collections</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="{% url 'user' %}">Patron</a></li>
+            </ul>
+        </nav>
+        <div class="hero">
+            <h1>A Journey Through <br><span>Canvas & Time</span></h1>
+            <p>Exploring the iconic visions of the masters.</p>
+        </div>
+    </header>
+
+    <main id="collections">
+        <section class="grid-container">
+            
+            <a href="{% url 'monet' %}" class="art-card monet">
+                <div class="card-content">
+                    <span>Impressionism</span>
+                    <h2>Claude Monet</h2>
+                </div>
+            </a>
+
+            <a href="{% url 'gogh' %}" class="art-card vangogh">
+                <div class="card-content">
+                    <span>Post-Impressionism</span>
+                    <h2>Vincent Van Gogh</h2>
+                </div>
+            </a>
+
+            <a href="{% url 'picasso' %}" class="art-card picasso">
+                <div class="card-content">
+                    <span>Cubism</span>
+                    <h2>Pablo Picasso</h2>
+                </div>
+            </a>
+
+            <a href="{% url 'dali' %}" class="art-card dali">
+                <div class="card-content">
+                    <span>Surrealism</span>
+                    <h2>Salvador Dalí</h2>
+                </div>
+            </a>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-info">
+            <p>&copy; 2024 The Curator's Vault. All Rights Reserved.</p>
+            <div class="socials">
+                <span>Instagram</span> • <span>Pinterest</span> • <span>Twitter</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
