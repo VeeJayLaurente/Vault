@@ -29,6 +29,9 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['.vercel.app', 'localhost', '127.0.0.1']
 
+# Replace 'your-app-name' with your actual Vercel URL
+CSRF_TRUSTED_ORIGINS = ['https://vault-rho-taupe.vercel.app']
+
 
 # Application definition
 
