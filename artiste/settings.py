@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os 
 import dj_database_url
 from pathlib import Path
+from urllib.parse import urlparse
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -87,16 +88,21 @@ DATABASES = {
     }
 }
 
-# 2. Production (Vercel)
-# We use os.getenv to check if the variable exists at all
-env_db_url = os.getenv('DATABASE_URL')
-
-if env_db_url:
-    DATABASES['default'] = dj_database_url.parse(env_db_url, conn_max_age=600, ssl_require=True)
-else:
-    # This will show up in your Vercel logs to tell us if the variable is missing
-    print("WARNING: DATABASE_URL environment variable not found. Falling back to SQLite.")
-
+# Manual Vercel/Supabase Parsing
+if os.environ.get('DATABASE_URL'):
+    url = urlparse(os.environ.get('DATABASE_URL'))
+    
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': url.path[1:],      # Removes the leading slash from the DB name
+        'USER': url.username,
+        'PASSWORD': url.password,
+        'HOST': url.hostname,
+        'PORT': url.port or '5432',
+        'OPTIONS': {
+            'sslmode': 'require',
+        }
+    }
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
