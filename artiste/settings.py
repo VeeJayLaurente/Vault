@@ -90,7 +90,7 @@ DATABASES = {
 # --- HARDCODED TEST ---
 # Replace [PASSWORD] and [PROJECT_ID] with your actual Supabase details
 # Example: "postgresql://postgres.myid:mypassword@aws-0-us-east-1.pooler.supabase.com:6543/postgres"
-test_db_url = "postgresql://postgres:#10147441+++@db.qvneeudwnragdpmqxuwg.supabase.co:5432/postgres"
+test_db_url = "postgresql://postgres.qvneeudwnragdpmqxuwg:#10147441+++@aws-1-ap-southeast-1.pooler.supabase.com:6543/postgres"
 
 try:
     url = urlparse(test_db_url)
@@ -100,10 +100,11 @@ try:
         'NAME': 'postgres', 
         'USER': 'postgres.qvneeudwnragdpmqxuwg', # Example: postgres.abcde-fgh-ijkl
         'PASSWORD': '#10147441+++',
-        'HOST': 'db.qvneeudwnragdpmqxuwg.supabase.co', # Or your specific Supabase host
-        'PORT': '5432',
+        'HOST': 'aws-1-ap-southeast-1.pooler.supabase.com', # Or your specific Supabase host
+        'PORT': '6543',
         'OPTIONS': {
             'sslmode': 'require',
+            'connect_timeout': 10,
         }
     }
 }
