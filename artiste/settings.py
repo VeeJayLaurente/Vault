@@ -87,13 +87,15 @@ DATABASES = {
     }
 }
 
-# Vercel-specific database injection
-if os.environ.get('DATABASE_URL'):
-    import dj_database_url
-    DATABASES['default'] = dj_database_url.config(
-        conn_max_age=600,
-        ssl_require=True
-    )
+# 2. Production (Vercel)
+# We use os.getenv to check if the variable exists at all
+env_db_url = os.getenv('DATABASE_URL')
+
+if env_db_url:
+    DATABASES['default'] = dj_database_url.parse(env_db_url, conn_max_age=600, ssl_require=True)
+else:
+    # This will show up in your Vercel logs to tell us if the variable is missing
+    print("WARNING: DATABASE_URL environment variable not found. Falling back to SQLite.")
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
