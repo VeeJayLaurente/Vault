@@ -17,8 +17,3 @@ application = get_wsgi_application()
 
 # Vercel needs this line to find your Django app
 app = application
-
-# Add this at the bottom:
-from django.core.management import call_command
-if os.environ.get('RUN_MIGRATIONS') == 'True':
-    call_command('migrate', interactive=False)
