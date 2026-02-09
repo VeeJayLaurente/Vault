@@ -95,17 +95,19 @@ test_db_url = "postgresql://postgres:#10147441+++@db.qvneeudwnragdpmqxuwg.supaba
 
 try:
     url = urlparse(test_db_url)
-    DATABASES['default'] = {
+    DATABASES = {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': url.path[1:],      
-        'USER': url.username,
-        'PASSWORD': url.password,
-        'HOST': url.hostname,
-        'PORT': url.port or '6543',
+        'NAME': 'postgres', 
+        'USER': 'postgres.qvneeudwnragdpmqxuwg', # Example: postgres.abcde-fgh-ijkl
+        'PASSWORD': '#10147441+++',
+        'HOST': 'db.qvneeudwnragdpmqxuwg.supabase.co', # Or your specific Supabase host
+        'PORT': '5432',
         'OPTIONS': {
             'sslmode': 'require',
         }
     }
+}
     print("DEBUG: Hardcoded database settings applied.")
 except Exception as e:
     print(f"DEBUG: Hardcode parsing failed: {e}")
