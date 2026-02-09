@@ -1,4 +1,3 @@
-RAISE_ERROR_HERE
 """
 Django settings for artiste project.
 
