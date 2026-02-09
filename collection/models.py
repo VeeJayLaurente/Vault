@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 class Patrons(models.Model):
     s_id = models.IntegerField()
@@ -6,4 +8,6 @@ class Patrons(models.Model):
     s_fname = models.CharField(max_length=120)
     s_lname = models.CharField(max_length=64)
     s_email = models.CharField()
-    s_pass = models.IntegerField()
+    s_pass = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField()
+

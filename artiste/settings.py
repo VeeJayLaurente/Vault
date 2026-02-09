@@ -1,3 +1,4 @@
+
 """
 Django settings for artiste project.
 
@@ -129,7 +130,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = []
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # This line is the "magic" that compresses and caches your art icons
