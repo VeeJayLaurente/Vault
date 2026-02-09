@@ -1,1 +1,28 @@
-user
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Patron Profile | VAULT</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body class="auth-bg">
+    <div class="auth-card profile-card">
+        <div class="auth-header">
+            <div class="logo">VAULT PATRON</div>
+            <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+            <p>Vault Access: Authorized</p>
+        </div>
+        
+        <div class="profile-details">
+            <p><strong>Username:</strong> {{ user.username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Student ID:</strong> {{ user.patron.s_id }}</p>
+            <p><strong>Bio:</strong> {{ user.patron.bio|default:"No bio set." }}</p>
+        </div>
+
+        <a href="{% url 'home' %}" class="btn-primary">Back to Collections</a>
+        <br>
+        <p class="auth-footer"><a href="{% url 'onboarding' %}" style="color: #ff4444;">Logout from Vault</a></p>
+    </div>
+</body>
+</html>
