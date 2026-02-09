@@ -88,28 +88,27 @@ DATABASES = {
     }
 }
 
-db_url = os.environ.get('DATABASE_URL')
+# --- HARDCODED TEST ---
+# Replace [PASSWORD] and [PROJECT_ID] with your actual Supabase details
+# Example: "postgresql://postgres.myid:mypassword@aws-0-us-east-1.pooler.supabase.com:6543/postgres"
+test_db_url = "postgresql://postgres:#10147441+++@db.qvneeudwnragdpmqxuwg.supabase.co:5432/postgres"
 
-if db_url:
-    try:
-        url = urlparse(db_url)
-        # These prints will show up in your Vercel "Functions" or "Runtime" logs
-        print(f"DEBUG: Database Host found: {url.hostname}")
-        print(f"DEBUG: Database Name found: {url.path[1:]}")
-        
-        DATABASES['default'] = {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': url.path[1:],
-            'USER': url.username,
-            'PASSWORD': url.password,
-            'HOST': url.hostname,
-            'PORT': url.port or '6543',
-            'OPTIONS': {'sslmode': 'require'},
+try:
+    url = urlparse(test_db_url)
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': url.path[1:],      
+        'USER': url.username,
+        'PASSWORD': url.password,
+        'HOST': url.hostname,
+        'PORT': url.port or '6543',
+        'OPTIONS': {
+            'sslmode': 'require',
         }
-    except Exception as e:
-        print(f"DEBUG: Error parsing DATABASE_URL: {e}")
-else:
-    print("DEBUG: DATABASE_URL is completely missing from environment.")
+    }
+    print("DEBUG: Hardcoded database settings applied.")
+except Exception as e:
+    print(f"DEBUG: Hardcode parsing failed: {e}")
     
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
