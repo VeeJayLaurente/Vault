@@ -88,21 +88,29 @@ DATABASES = {
     }
 }
 
-# Manual Vercel/Supabase Parsing
-if os.environ.get('DATABASE_URL'):
-    url = urlparse(os.environ.get('DATABASE_URL'))
-    
-    DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': url.path[1:],      # Removes the leading slash from the DB name
-        'USER': url.username,
-        'PASSWORD': url.password,
-        'HOST': url.hostname,
-        'PORT': url.port or '5432',
-        'OPTIONS': {
-            'sslmode': 'require',
+db_url = os.environ.get('DATABASE_URL')
+
+if db_url:
+    try:
+        url = urlparse(db_url)
+        # These prints will show up in your Vercel "Functions" or "Runtime" logs
+        print(f"DEBUG: Database Host found: {url.hostname}")
+        print(f"DEBUG: Database Name found: {url.path[1:]}")
+        
+        DATABASES['default'] = {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': url.path[1:],
+            'USER': url.username,
+            'PASSWORD': url.password,
+            'HOST': url.hostname,
+            'PORT': url.port or '6543',
+            'OPTIONS': {'sslmode': 'require'},
         }
-    }
+    except Exception as e:
+        print(f"DEBUG: Error parsing DATABASE_URL: {e}")
+else:
+    print("DEBUG: DATABASE_URL is completely missing from environment.")
+    
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
