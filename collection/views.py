@@ -33,7 +33,6 @@ def register(request):
         lname = request.POST.get('lname')
         email = request.POST.get('email')
         password = request.POST.get('password')
-        student_id = request.POST.get('student_id')
 
         if User.objects.filter(username=username).exists():
             messages.error(request, "Username already taken")
@@ -41,7 +40,7 @@ def register(request):
 
         # Create User and Profile
         user = User.objects.create_user(username=username, first_name=fname, last_name=lname, email=email, password=password)
-        Patron.objects.create(user=user, s_id=student_id)
+        Patron.objects.create(user=user)
         
         messages.success(request, "Registration successful! Please login.")
         return redirect('login')
