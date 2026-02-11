@@ -174,50 +174,45 @@ footer {
 
 /* --- Auth Card Styles --- */
 .auth-card {
-    background: white;
-    padding: 3rem;
-    width: 100%;
-    max-width: 450px;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.05);
-    border-radius: 2px;
+    max-width: 400px;         /* Prevents it from getting too wide */
+    width: 90%;              /* Responsive on mobile */
+    padding: 1.5rem;         /* Reduced padding from 2rem+ */
+    margin: 20px auto;       /* Centers it with a small gap top/bottom */
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
-
-.auth-header {
-    text-align: center;
-    margin-bottom: 2.5rem;
-}
-
 .auth-header h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    margin-top: 1rem;
+    font-size: 1.5rem;       /* Smaller heading to save space */
+    margin-bottom: 5px;
 }
 
-.auth-form .input-group {
-    margin-bottom: 1.5rem;
+.auth-header p {
+    font-size: 0.85rem;
+    margin-bottom: 15px;
 }
 
-.auth-form label {
+/* Make input groups more compact */
+.input-group {
+    margin-bottom: 0.8rem;   /* Reduced vertical spacing between inputs */
+}
+
+.input-group label {
+    font-size: 0.85rem;      /* Slightly smaller labels */
+    margin-bottom: 4px;
     display: block;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
 }
 
-.auth-form input {
-    width: 100%;
-    padding: 1rem;
-    border: 1px solid #e0e0e0;
-    font-family: 'Inter', sans-serif;
-    outline: none;
-    transition: var(--transition);
+.input-group input {
+    padding: 8px 12px;       /* Slimmer input fields */
+    font-size: 0.9rem;
 }
 
-.auth-form input:focus {
+.input-group:focus {
     border-color: var(--text-dark);
 }
+
+
 
 /* --- Universal Buttons --- */
 .btn-primary {
@@ -247,11 +242,11 @@ footer {
     letter-spacing: 1px;
     border-bottom: 1px solid var(--text-dark);
 }
-
 .auth-footer {
-    margin-top: 2rem;
+    margin-top: 1.5rem; /* Reduced from 5rem to 1.5rem */
     text-align: center;
-    font-size: 0.9rem;
+    font-size: 0.85rem;  /* Slightly smaller to fit better */
+    padding-bottom: 10px; /* Ensures it doesn't hug the very bottom edge */
 }
 
 .auth-footer a {

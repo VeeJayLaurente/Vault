@@ -21,13 +21,15 @@
                 <label>Username</label>
                 <input type="text" name="username" placeholder="curator123" required>
             </div>
-            <div class="input-group">
-                <label>First Name</label>
-                <input type="text" name="fname" placeholder="Claude" required>
-            </div>
-            <div class="input-group">
-                <label>Last Name</label>
-                <input type="text" name="lname" placeholder="Monet" required>
+           <div style="display: flex; gap: 15px;">
+                <div class="input-group" style="flex: 1;">
+                    <label>First Name</label>
+                    <input type="text" name="fname" placeholder="Claude" required>
+                </div>
+                <div class="input-group" style="flex: 1;">
+                    <label>Last Name</label>
+                    <input type="text" name="lname" placeholder="Monet" required>
+                </div>
             </div>
             <div class="input-group">
                 <label>Email Address</label>
@@ -37,6 +39,12 @@
                 <label>Password</label>
                 <input type="password" name="password" placeholder="••••••••" required>
             </div>
+
+            <div class="input-group">
+                <label>Brief Bio</label>
+                <textarea name="bio" placeholder="Tell us about your interest in art..."></textarea>
+            </div>
+
             <button type="submit" class="btn-primary">Create Patron Account</button>
         </form>
         <p class="auth-footer">Already signed up? <a href="{% url 'login' %}">Login to your Vault Account</a></p>

@@ -14,14 +14,37 @@
         </div>
         
         <div class="profile-details">
-            <p><strong>Username:</strong> {{ user.username }}</p>
-            <p><strong>Email:</strong> {{ user.email }}</p>
-            <p><strong>Bio:</strong> {{ user.patron.bio|default:"No bio set." }}</p>
-        </div>
+                <p><strong>Username:</strong> {{ user.username }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                
+                <form action="{% url 'update_profile' %}" method="POST" style="margin-top: 20px;">
+                    {% csrf_token %}
+                    <p><strong>Bio:</strong> 
+                        {% if user.patron %}
+                            {{ user.patron.bio|default:"No bio set." }}
+                        {% else %}
+                            No profile created yet.
+                        {% endif %}
+                    </p>
+                    <textarea name="bio" id="bio" rows="3" style="width: 100%; border-radius: 5px; padding: 5px; margin-top: 5px;">{{ user.patron.bio|default:"" }}</textarea>
+                    <button type="submit" class="btn-primary">Update Bio</button>
+                </form>
+            </div>
 
-        <a href="{% url 'home' %}" class="btn-primary">Back to Collections</a>
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #444;">
+
+            <a href="{% url 'home' %}" class="btn-primary">Back to Collections</a>
+
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #444;">
+
+            <form action="{% url 'delete_account' %}" method="POST" onsubmit="return confirm('Are you sure? This cannot be undone.');" style="margin-top: 20px;">
+                {% csrf_token %}
+                <button type="submit" class="btn-primary">
+                 Delete My Vault Access
+                </button>
+            </form>
         <br>
-        <p class="auth-footer"><a href="{% url 'onboarding' %}" style="color: #ff4444;">Logout from Vault</a></p>
+        <p class="auth-footer"><a href="{% url 'logout' %}" style="color: #ff4444;">Logout from Vault</a></p>
     </div>
 </body>
 </html>

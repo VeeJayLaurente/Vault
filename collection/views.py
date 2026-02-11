@@ -1,9 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout
+from django.contrib.auth.decorators import login_required
 from .models import Patron
 from django.contrib import messages
 from django.http import HttpResponse
+from django.db import connection
 
 def onboarding(request):
     return render(request,"onboarding.html")
@@ -58,8 +60,49 @@ def picasso(request):
 def dali(request):
     return render(request,"dali.html")
 
+@login_required
+def update_profile(request):
+    if request.method == "POST":
+        new_bio = request.POST.get('bio')
+        # Get the patron object for the logged-in user
+        patron = request.user.patron
+        patron.bio = new_bio
+        patron.save() # This updates the record in Supabase
+        messages.success(request, "Bio updated successfully!")
+        return redirect('user')
+    return redirect('user')
+
+@login_required
+def delete_account(request):
+    if request.method == "POST":
+        user_id = request.user.id
+        
+        # 1. End the session in the browser first
+        logout(request)
+        
+        # 2. Direct strike to the database
+        # This bypasses all internal Django checks for missing tables
+        with connection.cursor() as cursor:
+            cursor.execute("DELETE FROM auth_user WHERE id = %s", [user_id])
+            
+        messages.success(request, "Your Patron record has been purged from the Vault.")
+        return redirect('onboarding')
+        
+    return redirect('user')
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('onboarding')
+
+@login_required
 def user(request):
-    # Only show if logged in
-    if not request.user.is_authenticated:
-        return redirect('login')
-    return render(request,"user.html")
+    # This check prevents the 500 error if the Patron record is missing
+    try:
+        patron = request.user.patron
+    except Exception:
+        # If it's missing, create it on the fly so the page works
+        from .models import Patron
+        Patron.objects.create(user=request.user)
+    
+    return render(request, "user.html")
