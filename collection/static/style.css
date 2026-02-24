@@ -386,3 +386,24 @@ footer {
     background: #1a1a1a;
     color: white;
 }
+
+.btn-fav {
+    background-color: #e60023; /* Pinterest Red */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 20px 0;
+    transition: transform 0.2s ease;
+}
+
+.btn-fav:hover {
+    transform: scale(1.05);
+    background-color: #ad081b;
+}
+
+.heart-icon {
+    margin-right: 5px;
+}

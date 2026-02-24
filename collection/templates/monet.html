@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Claude Monet | The Vault</title>
-        {% load static %}
+    {% load static %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 </head>
@@ -24,17 +24,27 @@
             
             <div class="art-viewer">
                 <div class="carousel-track">
-                    <img src="monet-art1.jpg" alt="Water Lilies" class="active">
-                    </div>
+                    <img src="{% static 'monet-art1.jpg' %}" alt="Water Lilies" class="active">
+                </div>
             </div>
 
             <div class="info-card">
                 <div class="info-content">
                     <span class="year">1906</span>
-                    <h2>Water Lilies</h2>
+                    <h2 id="display-title">Water Lilies</h2>
                     <hr>
-                    <p>This series captures the flower garden at Monet's home in Giverny. The focus is on the surface of the water, dissolving the horizon line to create a sense of infinite peace.</p>
+                    <p id="display-desc">This series captures the flower garden at Monet's home in Giverny.</p>
                     
+                    <form action="{% url 'toggle_favorite' %}" method="POST" id="fav-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="artwork_name" id="fav-title" value="Water Lilies">
+                        <input type="hidden" name="image_url" id="fav-img" value="{% static 'monet-art1.jpg' %}">
+                        <input type="hidden" name="page_url" value="monet">
+                        
+                        <button type="submit" class="btn-fav">
+                            <span class="heart-icon">♥</span> Save to Vault
+                        </button>
+                    </form>
                     <div class="carousel-controls">
                         <button class="prev">←</button>
                         <button class="next">→</button>
@@ -46,19 +56,20 @@
     </section>
 
 </body>
+
 <script> 
 const artworks = [
     {
-        img: "art1.jpg",
+        img: "{% static 'Water Lilies.jpg' %}",
         year: "1906",
-        title: "Masterpiece One",
-        desc: "Description of the first artwork goes here."
+        title: "Water Lilies",
+        desc: "This series captures the flower garden at Monet's home in Giverny."
     },
     {
-        img: "art2.jpg",
-        year: "1910",
-        title: "Masterpiece Two",
-        desc: "Description of the second artwork goes here."
+        img: "{% static 'Stacks of Wheat.jpg' %}",
+        year: "1872",
+        title: "Stacks of Wheat",
+        desc: "In this view, and in nearly all of the autumn views in the series, the conical tops of the stacks break the horizon and push into the sky. But in most of the winter views, which constitute the core of the series, the stacks seem wrapped by bands of hill and field, as if bedded down for the season. "
     }
 ];
 
@@ -67,17 +78,28 @@ let currentIndex = 0;
 function updateGallery() {
     const artImg = document.querySelector('.art-viewer img');
     const yearLabel = document.querySelector('.info-content .year');
-    const titleLabel = document.querySelector('.info-content h2');
-    const descLabel = document.querySelector('.info-content p');
+    const titleLabel = document.getElementById('display-title');
+    const descLabel = document.getElementById('display-desc');
+    
+    // Hidden Form Inputs
+    const favTitleInput = document.getElementById('fav-title');
+    const favImgInput = document.getElementById('fav-img');
 
-    // Add a quick fade effect
     artImg.style.opacity = 0;
     
     setTimeout(() => {
-        artImg.src = artworks[currentIndex].img;
-        yearLabel.innerText = artworks[currentIndex].year;
-        titleLabel.innerText = artworks[currentIndex].title;
-        descLabel.innerText = artworks[currentIndex].desc;
+        const currentArt = artworks[currentIndex];
+        
+        // Update UI
+        artImg.src = currentArt.img;
+        yearLabel.innerText = currentArt.year;
+        titleLabel.innerText = currentArt.title;
+        descLabel.innerText = currentArt.desc;
+        
+        // UPDATE THE FAVORITE FORM DATA
+        favTitleInput.value = currentArt.title;
+        favImgInput.value = currentArt.img;
+        
         artImg.style.opacity = 1;
     }, 300);
 }

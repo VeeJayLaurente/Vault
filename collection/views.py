@@ -106,3 +106,27 @@ def user(request):
         Patron.objects.create(user=request.user)
     
     return render(request, "user.html")
+
+@login_required
+def toggle_favorite(request):
+    if request.method == "POST":
+        artwork = request.POST.get('artwork_name')
+        img = request.POST.get('image_url')
+        page = request.POST.get('page_url')
+        
+        fav, created = Favorite.objects.get_or_create(
+            user=request.user, 
+            artwork_name=artwork,
+            defaults={'image_url': img, 'page_url': page}
+        )
+        
+        if not created:
+            fav.delete() # Unfavorite if it already exists
+            
+        return redirect(page) # Return to the artist page
+    return redirect('home')
+
+@login_required
+def user_profile(request):
+    favorites = Favorite.objects.filter(user=request.user)
+    return render(request, "user.html", {'favorites': favorites})
