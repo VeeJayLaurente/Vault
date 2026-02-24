@@ -151,6 +151,7 @@ STATIC_URL = '/collection/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'assets'),
 ]
 # If you don't have a global static folder yet, create an empty one 
 # or comment out the STATICFILES_DIRS line above.
