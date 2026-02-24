@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.decorators import login_required
-from .models import Patron
+from .models import Patron, Favorite
 from django.contrib import messages
 from django.http import HttpResponse
 from django.db import connection
@@ -97,15 +97,17 @@ def logout_view(request):
 
 @login_required
 def user(request):
-    # This check prevents the 500 error if the Patron record is missing
+    # 1. Safety check for Patron profile
     try:
         patron = request.user.patron
     except Exception:
-        # If it's missing, create it on the fly so the page works
-        from .models import Patron
         Patron.objects.create(user=request.user)
     
-    return render(request, "user.html")
+    # 2. Fetch all favorites for this user
+    favorites = Favorite.objects.filter(user=request.user)
+    
+    # 3. Pass everything to the template
+    return render(request, "user.html", {'favorites': favorites})
 
 @login_required
 def toggle_favorite(request):
@@ -125,8 +127,3 @@ def toggle_favorite(request):
             
         return redirect(page) # Return to the artist page
     return redirect('home')
-
-@login_required
-def user_profile(request):
-    favorites = Favorite.objects.filter(user=request.user)
-    return render(request, "user.html", {'favorites': favorites})
