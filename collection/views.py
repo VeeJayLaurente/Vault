@@ -4,7 +4,6 @@ from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.decorators import login_required
 from .models import Patron, Favorite
 from django.contrib import messages
-from django.http import HttpResponse
 from django.db import connection
 
 def onboarding(request):

@@ -318,23 +318,25 @@ footer {
 .gallery-wrapper {
     display: flex;
     gap: 50px;
-    align-items: center;
+    align-items: flex-start;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .art-viewer {
     flex: 1.5;
-    background: #000;
-    height: 600px;
+    background: #1a1a1a; /* matches the gallery background so bars are invisible */
     overflow: hidden;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .art-viewer img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    display: block;
     transition: opacity 0.5s ease;
 }
 
@@ -385,6 +387,11 @@ footer {
 .carousel-controls button:hover {
     background: #1a1a1a;
     color: white;
+}
+
+.carousel-track {
+    width: 100%;
+    display: block; /* changed from flex */
 }
 
 .btn-fav {

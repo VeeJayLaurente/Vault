@@ -24,7 +24,7 @@
             
             <div class="art-viewer">
                 <div class="carousel-track">
-                    <img src="{% static 'assets/WaterLilies.jpg' %}" alt="Water Lilies" class="active">
+                    <img src="{% static 'WaterLilies.jpg' %}" alt="Water Lilies" class="active">
                 </div>
             </div>
 
@@ -38,9 +38,8 @@
                     <form action="{% url 'toggle_favorite' %}" method="POST" id="fav-form">
                         {% csrf_token %}
                         <input type="hidden" name="artwork_name" id="fav-title" value="Water Lilies">
-                        <input type="hidden" name="image_url" id="fav-img" value="{% static 'assets/WaterLilies.jpg' %}">
+                        <input type="hidden" name="image_url" id="fav-img" value="{% static 'WaterLilies.jpg' %}">
                         <input type="hidden" name="page_url" value="monet">
-                        
                         <button type="submit" class="btn-fav">
                             <span class="heart-icon">♥</span> Save to Vault
                         </button>
@@ -60,13 +59,13 @@
 <script> 
 const artworks = [
     {
-        img: "{% static 'assets/WaterLilies.jpg' %}",
+        img: "{% static 'WaterLilies.jpg' %}",
         year: "1906",
         title: "Water Lilies",
         desc: "This series captures the flower garden at Monet's home in Giverny."
     },
     {
-        img: "{% static 'assets/Wheat.jpg' %}",
+        img: "{% static 'Wheat.jpg' %}",
         year: "1872",
         title: "Stacks of Wheat",
         desc: "In this view, and in nearly all of the autumn views in the series, the conical tops of the stacks break the horizon and push into the sky. But in most of the winter views, which constitute the core of the series, the stacks seem wrapped by bands of hill and field, as if bedded down for the season. "
